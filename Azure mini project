@@ -1,0 +1,12 @@
+This drive contains videos about the azure cloud computing mini project
+This includes:
+1)Creating an azure storage account using the azure portal and create a BLOB 
+storage(Hottier) inside a container. Uploading an image as well as a short video and set different access 
+permissions(private and public). "ENABLE ACCESS TRACKING" and adding a rule in the lifecycle management policies telling that
+i. if the page blob which we created is not accessed for 10 days then change 
+its access tier to cool.
+ii. If the blob is not modified for 45 days, delete the blob.
+
+2)Creating a windows virtual machine using Azure and login using the RDP protocol
+
+https://drive.google.com/drive/folders/1R9LmybQIUuquMvBnC8ijcZdURylFQ8Z1?usp=sharing
