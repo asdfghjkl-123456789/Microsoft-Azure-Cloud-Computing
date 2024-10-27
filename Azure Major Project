@@ -1,0 +1,9 @@
+This drive contains videos about the azure cloud computing mini project
+This includes:
+1) Creating a computer vision resource for OCR (Optical character recognition) and perform OCR on the images.
+2) Creating an Azure SQL database using the sandbox environment and run a sample query on it.
+3) Manage a password in Azure Key Vault. For this we can also use Microsoft sandbox free environment that can be used to do this task.
+4) Configure Azure resource lock. Storage accounts are one of the easiest types of resource locks to quickly see the impact, so you’ll use a storage account for this exercise. In order to apply 
+a resource lock, you have to have a resource created in Azure.
+
+https://drive.google.com/drive/folders/1NgHmcoIg-W7bgUwtLqUmsj5DVBjyeIwK?usp=sharing
