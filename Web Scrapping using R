@@ -1,0 +1,83 @@
+#This R script extracts key information from a webpage, including headings, text, links, images, and tables. 
+#After installing and loading the necessary libraries (rvest, dplyr, and stringr), it prompts the user to enter a URL. 
+#The scrape_data() function then retrieves the webpage content, extracts relevant elements, and displays the results. 
+#If an invalid URL is provided, the script handles the error gracefully without crashing.
+
+install.packages(c("rvest","dplyr","stringr"))
+library(rvest)
+library(dplyr)
+library(stringr)
+scrape_data <- function(url) {
+  webpage <- tryCatch(
+    { read_html(url) },
+    error = function(e) {
+      message("Error fetching the webpage. Please check the URL.")
+      return(NULL)
+    }
+  )
+  
+  if (is.null(webpage)) return(NULL)
+  headings <- webpage %>%
+    html_nodes("h1, h2, h3") %>%
+    html_text() %>%
+    str_squish() 
+  text_content <- webpage %>%
+    html_nodes("body") %>%
+    html_text() %>%
+    str_squish()
+  
+  first_500_chars <- substr(text_content, 1, 500) 
+  links <- webpage %>%
+    html_nodes("a") %>%
+    html_attr("href")
+  
+  images <- webpage %>%
+    html_nodes("img") %>%
+    html_attr("src")
+  
+  tables <- webpage %>%
+    html_nodes("table") %>%
+    html_table(fill = TRUE)
+  
+  scraped_data <- list(
+    KeyPoints = headings,
+    First500Chars = first_500_chars,
+    Links = links,
+    Images = images,
+    Tables = tables
+  )
+  return(scraped_data)
+}
+
+cat("Enter the URL to scrape:\n")
+url <- readline() 
+
+scraped_content <- scrape_data(url)
+
+if (!is.null(scraped_content)) {
+ 
+  cat("\nExtracted Key Points (Headings):\n")
+  if (length(scraped_content$KeyPoints) > 0) {
+    print(scraped_content$KeyPoints)
+  } else {
+    cat("No headings found on the webpage.\n")
+  }
+  
+  cat("\nFirst 500 Characters of Text Content:\n")
+  print(scraped_content$First500Chars)
+  
+  cat("\nExtracted Links:\n")
+  print(scraped_content$Links)
+ 
+  cat("\nExtracted Image Sources:\n")
+  print(scraped_content$Images)
+ 
+  if (length(scraped_content$Tables) > 0) {
+    cat("\nExtracted Table Data:\n")
+    print(scraped_content$Tables[[1]])
+  } else {
+    cat("\nNo tables found on the webpage.\n")
+  }
+} else {
+  cat("\nNo data extracted. Please try a valid URL.\n")
+}
